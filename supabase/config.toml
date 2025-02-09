@@ -1,6 +1,6 @@
 # A string used to distinguish different Supabase projects on the same host. Defaults to the
 # working directory name when running `supabase init`.
-project_id = "borgbot.com"
+project_id = "airmsijsztespiduujkq"
 
 [api]
 # Port to use for the API URL.
@@ -25,7 +25,7 @@ major_version = 15
 
 [db.pooler]
 enabled = false
-port = 54329
+port = 6543
 pool_mode = "transaction"
 default_pool_size = 20
 max_client_conn = 100

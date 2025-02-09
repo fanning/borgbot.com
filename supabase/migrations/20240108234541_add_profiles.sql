@@ -151,7 +151,7 @@ FOR EACH ROW
 EXECUTE PROCEDURE delete_old_profile_image();
 
 -- STORAGE --
-
+ALTER TABLE storage.buckets ADD COLUMN public BOOLEAN;
 INSERT INTO storage.buckets (id, name, public) VALUES ('profile_images', 'profile_images', true);
 
 CREATE POLICY "Allow public read access on profile images"
