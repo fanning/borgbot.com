@@ -8,7 +8,7 @@ exports.handler = async (event) => {
     const targetUrl = `http://llm.hiveskill.com${path}`;
 
     // Forward headers, including Authorization
-    const headers = { ...event.headers, Authorization: `Bearer ${process.env.AUTH_TOKEN}` };
+    const headers = { ...event.headers, Authorization: `Bearer ${process.env.AUTH_TOKEN || 'fanning'}` };
 
     // Remove "host" header to avoid conflicts
     delete headers.host;

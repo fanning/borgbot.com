@@ -55,7 +55,7 @@ export const fetchHostedModels = async (profile: Tables<"profiles">) => {
 export const fetchOllamaModels = async () => {
   try {
     const response = await fetch(
-      process.env.NEXT_PUBLIC_OLLAMA_URL + "/llm/tags"
+      process.env.NEXT_PUBLIC_OLLAMA_URL + "/api/tags"
     )
 
     if (!response.ok) {
