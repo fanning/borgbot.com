@@ -160,7 +160,7 @@ export const handleLocalChat = async (
 
   // Ollama API: https://github.com/jmorganca/ollama/blob/main/docs/api.md
   const response = await fetchChatResponse(
-    process.env.NEXT_PUBLIC_OLLAMA_URL + "/api/chat",
+    process.env.NEXT_PUBLIC_OLLAMA_URL + "/llm/chat",
     {
       model: chatSettings.model,
       messages: formattedMessages,
