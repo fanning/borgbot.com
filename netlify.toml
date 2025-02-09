@@ -1,6 +1,6 @@
 # Redirect all HTTPS requests from llm.borgbot.com to llm.hiveskill.com over HTTP
 [[redirects]]
-  from = "https://llm.borgbot.com/*"
+  from = "http://llm.borgbot.com/*"
   to = "http://llm.hiveskill.com/:splat"
   status = 301
   force = true
