@@ -1,7 +1,7 @@
 exports.handler = async (event) => {
   try {
     // Extract path from the original request
-    const path = event.path; // Adjust as needed
+    const path = event.path.replace('/llm', '/api'); // Adjust as needed
 
     // Construct target URL
     const targetUrl = `http://llm.hiveskill.com${path}`;
