@@ -1,0 +1,12 @@
+# Redirect all HTTPS requests from llm.borgbot.com to llm.hiveskill.com over HTTP
+[[redirects]]
+  from = "https://llm.borgbot.com/*"
+  to = "http://llm.hiveskill.com/:splat"
+  status = 301
+  force = true
+
+# Redirect all requests to index.html (for React SPA)
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
