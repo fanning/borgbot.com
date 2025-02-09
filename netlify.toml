@@ -1,5 +1,14 @@
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/proxy"
+  status = 200
+  force = true
+
 # Redirect all requests to index.html (for React SPA)
 [[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
+
+
+
