@@ -281,6 +281,82 @@ export const fetchChatResponse = async (
   return response
 }
 
+// This is original ChatUi code, but it didn't work and broke JSON.
+// export const processResponse = async (
+//   response: Response,
+//   lastChatMessage: ChatMessage,
+//   isHosted: boolean,
+//   controller: AbortController,
+//   setFirstTokenReceived: React.Dispatch<React.SetStateAction<boolean>>,
+//   setChatMessages: React.Dispatch<React.SetStateAction<ChatMessage[]>>,
+//   setToolInUse: React.Dispatch<React.SetStateAction<string>>
+// ) => {
+//   let fullText = ""
+//   let contentToAdd = ""
+
+//   if (response.body) {
+//     await consumeReadableStream(
+//       response.body,
+//       chunk => {
+//         setFirstTokenReceived(true)
+//         setToolInUse("none")
+
+//         try {
+//           console.log('chunk', chunk.trimEnd()
+//           .split("\n"))
+//           console.log('isHosted', isHosted)
+//           contentToAdd = chunk
+//           // contentToAdd = isHosted
+//           //   ? chunk
+//           //   : // Ollama's streaming endpoint returns new-line separated JSON
+//           //     // objects. A chunk may have more than one of these objects, so we
+//           //     // need to split the chunk by new-lines and handle each one
+//           //     // separately.
+//           //     chunk
+//           //       .trimEnd()
+//           //       .split("\n")
+//           //       // .reduce(
+//           //       //   (acc, line) => acc + JSON.parse(line).message.content,
+//           //       //   ""
+//           //       // )
+//           //       .reduce(
+//           //         (acc, line) => acc + line,
+//           //         ""
+//           //       )
+//           //       console.log('contentToAdd',contentToAdd)
+//           fullText += contentToAdd
+//         } catch (error) {
+//           console.error("Error parsing JSON:", error)
+//         }
+
+//         setChatMessages(prev =>
+//           prev.map(chatMessage => {
+//             if (chatMessage.message.id === lastChatMessage.message.id) {
+//               const updatedChatMessage: ChatMessage = {
+//                 message: {
+//                   ...chatMessage.message,
+//                   content: fullText
+//                 },
+//                 fileItems: chatMessage.fileItems
+//               }
+
+//               return updatedChatMessage
+//             }
+
+//             return chatMessage
+//           })
+//         )
+//       },
+//       controller.signal
+//     )
+
+//     return fullText
+//   } else {
+//     throw new Error("Response body is null")
+//   }
+// }
+
+// Updated by Mir Adnan on Feb 9, 2025 to fix JSON parsing issue
 export const processResponse = async (
   response: Response,
   lastChatMessage: ChatMessage,
@@ -291,7 +367,7 @@ export const processResponse = async (
   setToolInUse: React.Dispatch<React.SetStateAction<string>>
 ) => {
   let fullText = ""
-  let contentToAdd = ""
+  let buffer = "" // Buffer to store incomplete JSON chunks
 
   if (response.body) {
     await consumeReadableStream(
@@ -301,38 +377,46 @@ export const processResponse = async (
         setToolInUse("none")
 
         try {
-          contentToAdd = isHosted
-            ? chunk
-            : // Ollama's streaming endpoint returns new-line separated JSON
-              // objects. A chunk may have more than one of these objects, so we
-              // need to split the chunk by new-lines and handle each one
-              // separately.
-              chunk
-                .trimEnd()
-                .split("\n")
-                .reduce(
-                  (acc, line) => acc + JSON.parse(line).message.content,
-                  ""
-                )
-          fullText += contentToAdd
+          buffer += chunk.trimEnd() // Accumulate incoming data
+          const lines = buffer.split("\n")
+          buffer = "" // Reset buffer temporarily
+
+          for (let i = 0; i < lines.length; i++) {
+            let line = lines[i].trim()
+            if (!line) continue // Skip empty lines
+
+            try {
+              const parsed = JSON.parse(line) // Parse the JSON object
+              // console.log("Parsed JSON:", parsed);
+
+              // Ensure we extract ONLY the content and not the entire JSON
+              if (parsed.message && parsed.message.content) {
+                fullText += parsed.message.content // Append only the message content
+              }
+            } catch (error) {
+              // If parsing fails, assume it's an incomplete JSON and keep it
+              buffer = lines.slice(i).join("\n") // Save for next chunk
+              break
+            }
+          }
+
+          // console.log("Accumulated full text:", fullText);
         } catch (error) {
-          console.error("Error parsing JSON:", error)
+          console.error("Error processing chunk:", error)
         }
 
+        // Update UI with the extracted message content only
         setChatMessages(prev =>
           prev.map(chatMessage => {
             if (chatMessage.message.id === lastChatMessage.message.id) {
-              const updatedChatMessage: ChatMessage = {
+              return {
+                ...chatMessage,
                 message: {
                   ...chatMessage.message,
-                  content: fullText
-                },
-                fileItems: chatMessage.fileItems
+                  content: fullText // Send only message content, not JSON
+                }
               }
-
-              return updatedChatMessage
             }
-
             return chatMessage
           })
         )
