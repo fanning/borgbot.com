@@ -11,16 +11,24 @@ interface BrandProps {
 export const Brand: FC<BrandProps> = ({ theme = "dark" }) => {
   return (
     <Link
-      className="flex cursor-pointer flex-col items-center hover:opacity-50"
+      className="flex w-full cursor-pointer flex-col items-center justify-center gap-8"
       href="https://www.borgbot.com"
       target="_blank"
       rel="noopener noreferrer"
     >
-      <div className="mb-2">
-        <ChatbotUISVG theme={theme === "dark" ? "dark" : "light"} scale={0.3} />
+      <div>
+        <img
+          src={
+            theme === "dark" ? "/DARK_BRAND_LOGO.png" : "/LIGHT_BRAND_LOGO.png"
+          }
+          alt="BorgBot Logo"
+          className="size-[120px] object-cover"
+        />
       </div>
 
-      <div className="text-4xl font-bold tracking-wide">BorgBot</div>
+      <div className="w-full text-center text-4xl font-bold tracking-wide">
+        Speak Human
+      </div>
     </Link>
   )
 }
