@@ -12,7 +12,7 @@ export default function HomePage() {
   const [messages, setMessages] = useState([
     {
       role: "assistant",
-      content: "Hi! I'm BorgBot. Want to try a quick chat before signing up?"
+      content: "Speak Human"
     }
   ])
   const [input, setInput] = useState("")
