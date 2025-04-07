@@ -18,11 +18,11 @@ export const Brand: FC<BrandProps> = ({ theme = "dark" }) => {
     >
       <div>
         <img
-          src={
-            theme === "dark" ? "/DARK_BRAND_LOGO.png" : "/LIGHT_BRAND_LOGO.png"
-          }
+          src="/signal-2025-04-06-224826_002.jpeg"
           alt="BorgBot Logo"
           className="size-[120px] object-cover"
+          width={280}
+          height={280}
         />
       </div>
 
