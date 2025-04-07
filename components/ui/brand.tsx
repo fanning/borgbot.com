@@ -20,7 +20,7 @@ export const Brand: FC<BrandProps> = ({ theme = "dark" }) => {
         <img
           src="/signal-2025-04-06-224826_002.jpeg"
           alt="BorgBot Logo"
-          className="size-[280px] object-cover"
+          className="object-cover"
           width={280}
           height={420}
         />
