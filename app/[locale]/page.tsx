@@ -35,7 +35,7 @@ export default function HomePage() {
   return (
     <div className="flex size-full flex-col items-center justify-center px-4">
       <div>
-        <ChatbotUISVG theme={theme === "dark" ? "dark" : "light"} scale={0.3} />
+        <ChatbotUISVG theme={theme === "dark" ? "dark" : "light"} scale={1} />
       </div>
 
       <div className="mt-2 text-4xl font-bold">BorgBot</div>
