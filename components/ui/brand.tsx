@@ -22,7 +22,7 @@ export const Brand: FC<BrandProps> = ({ theme = "dark" }) => {
           alt="BorgBot Logo"
           className="size-[280px] object-cover"
           width={280}
-          height={280}
+          height={420}
         />
       </div>
 
