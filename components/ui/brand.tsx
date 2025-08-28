@@ -27,7 +27,7 @@ export const Brand: FC<BrandProps> = ({ theme = "dark" }) => {
       </div>
 
       <div className="w-full text-center text-4xl font-bold tracking-wide">
-Speak Human Updated
+        Speak Human
       </div>
     </Link>
   )
