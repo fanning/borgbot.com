@@ -73,9 +73,10 @@ export default function HomePage() {
       <Link
         className="mt-6 flex w-[200px] items-center justify-center rounded-md bg-blue-500 p-2 font-semibold text-white"
         href="/login"
+          style={{ position: "absolute", top: "1rem", right: "1rem" }}
       >
-        Sign in to continue
-        <IconArrowRight className="ml-1" size={20} />
+          Login
+        
       </Link>
     </div>
   )
