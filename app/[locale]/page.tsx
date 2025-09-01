@@ -71,10 +71,8 @@ export default function HomePage() {
       </div>
 
       <Link
-        className="mt-6 flex w-[200px] items-center justify-center rounded-md bg-blue-500 p-2 font-semibold text-white"
-        href="/login"
-          style={{ position: "absolute", top: "1rem", right: "1rem" }}
-      >
+    className="absolute top-4 right-4 inline-flex items-center justify-center rounded-md border border-blue-500 px-3 py-1.5 text-sm font-semibold text-blue-400 hover:bg-blue-500/10 hover:text-blue-300 dark:border-blue-400 dark:text-blue-300 dark:hover:bg-blue-600/20 dark:hover:text-blue-200"
+href="/login"
           Login
         
       </Link>
