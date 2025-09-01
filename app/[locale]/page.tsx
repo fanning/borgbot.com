@@ -73,6 +73,7 @@ export default function HomePage() {
       <Link
     className="absolute top-4 right-4 inline-flex items-center justify-center rounded-md border border-blue-500 px-3 py-1.5 text-sm font-semibold text-blue-400 hover:bg-blue-500/10 hover:text-blue-300 dark:border-blue-400 dark:text-blue-300 dark:hover:bg-blue-600/20 dark:hover:text-blue-200"
 href="/login"
+style={{ backgroundColor: "#3b82f6", border: "1px solid #3b82f6", color: "#60a5fa" }}
           Login
         
       </Link>
