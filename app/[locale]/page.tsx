@@ -1,3 +1,4 @@
+// placeholder
 "use client"
 
 import { ChatbotUISVG } from "@/components/icons/chatbotui-svg"
